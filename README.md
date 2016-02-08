@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/codepr/lingua-it-readability.svg?branch=master)](https://travis-ci.org/codepr/lingua-it-readability)
+
 # Lingua::It::Readability
 
 Inpired by Lingua::EN::Readability and his perl original version Lingua::EN::Fathom, a gem focused on readability of Italian language texts.
