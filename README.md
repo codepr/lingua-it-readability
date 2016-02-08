@@ -36,7 +36,7 @@ See the [CHANGELOG](CHANGELOG.md) file.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/lingua-it-readability.
+Bug reports and pull requests are welcome on GitHub at https://github.com/codepr/lingua-it-readability.
 
 
 ## License
