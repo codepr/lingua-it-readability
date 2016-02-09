@@ -23,26 +23,18 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-text   = 'Testo campione da analizzare.'
+text   = 'Testo campione da analizzare con Gulpease e Flesch tarati su lingua Italiana.'
 report = Lingua::IT::Readability.new(text)
 report.num_sentences # 1
-report.num_words     # 4
-report.num_syllables # 11
-report.report        # a formatted summary of statistics and measures
-
-# it's also possible to not directly initialize the object..
-report = Lingua::IT::Readability.new
-report.analyze(text)
-
-# ..and get al the infos as well
-report.num_sentences # 1
-report.num_words     # 4
-report.num_syllables # 11
+report.num_words     # 12
+report.num_syllables # 29
+report.gulpease      # 59
+report.flesch        # 36.92
 report.report        # a formatted summary of statistics and measures
 
 # accept type 'scientific' to treat list items separated by semicolons as sentences
 text = "Lista:\n- Gennaio;\n- Febbraio;"
-report.analyze(text)
+report = Lingua::IT::Readability.new(text)
 report.num_sentences # 3
 report.num_words     # 3
 report.num_syllables # 8

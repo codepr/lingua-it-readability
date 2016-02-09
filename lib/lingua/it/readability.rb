@@ -10,6 +10,7 @@ module Lingua
   module IT
     class Readability
       attr_reader :text
+      attr_reader :text
       attr_reader :type
       attr_reader :paragraphs
       attr_reader :sentences
@@ -18,19 +19,6 @@ module Lingua
 
       # Initialize the sample with +text+
       def initialize(text = '', type = 'standard')
-        @text                = text.dup
-        @type                = type
-        @paragraphs          = Lingua::IT::Paragraph.paragraphs(self.text)
-        @sentences           = Lingua::IT::Sentence.sentences(self.text, self.type)
-        @words               = []
-        @frequencies         = {}
-        @frequencies.default = 0
-        @syllables           = Lingua::IT::Syllable.syllables(self.text)
-        count_words
-      end
-
-      # Analyze the sample with +text+
-      def analyze(text, type = 'standard')
         @text                = text.dup
         @type                = type
         @paragraphs          = Lingua::IT::Paragraph.paragraphs(self.text)
@@ -138,7 +126,7 @@ module Lingua
 
       private
 
-      # Nnumber of words in the sample. A words is represented by a sequence
+      # Number of words in the sample. A words is represented by a sequence
       # of single characters exlucding punctuation, except for all kind of
       # parenthesis like () [] and {}. Being calibrated for italian language
       # it takes in account even accented characters.
