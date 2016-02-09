@@ -32,9 +32,9 @@ report.gulpease      # 59
 report.flesch        # 36.92
 report.report        # a formatted summary of statistics and measures
 
-# accept type 'scientific' to treat list items separated by semicolons as sentences
+# accept custom symbols as delimiters
 text = "Lista:\n- Gennaio;\n- Febbraio;"
-report = Lingua::IT::Readability.new(text)
+report = Lingua::IT::Readability.new(text, ':', '-')
 report.num_sentences # 3
 report.num_words     # 3
 report.num_syllables # 8

@@ -52,7 +52,7 @@ describe Lingua::IT::Readability do
   describe "#num_syllables" do
     let(:output) { subject.num_syllables }
     it "should calculate the correct number of syllables " do
-      expect(output).to eq(401)
+      expect(output).to eq(405)
     end
   end
 
@@ -73,7 +73,7 @@ describe Lingua::IT::Readability do
   describe "#syllables_per_word" do
     let(:output) { subject.syllables_per_word }
     it "should calculate the average number of syllables per word" do
-      expect(output).to eq(2.1)
+      expect(output).to eq(2.12)
     end
   end
 
@@ -87,8 +87,34 @@ describe Lingua::IT::Readability do
   describe "#flesch" do
     let(:output) { subject.flesch }
     it "should calculate the correct flesch index" do
-      expect(output).to eq(52.17)
+      expect(output).to eq(50.81)
     end
   end
 
+  describe "#delimiters" do
+    subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.", ',', '-') }
+    let(:new_delim_output) { subject.sentences }
+
+    it "should recognize the correct number of sentences with new delimiter added" do
+      expect(new_delim_output.length).to eq(4)
+      expect(new_delim_output[0]).to eq('Sig,')
+      expect(new_delim_output[1]).to eq('Andrea Giacomo Baldan suo-')
+      expect(new_delim_output[2]).to eq('Zio è alto.')
+      expect(new_delim_output[3]).to eq('Mio.')
+    end
+  end
+
+  describe "#reset_delimiter" do
+    subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.") }
+    let(:reset_delim_output) {
+      subject.reset_delimiter
+      subject.sentences
+    }
+
+    it "should recognize the correct number of sentences with new delimiter added" do
+      expect(reset_delim_output.length).to eq(2)
+      expect(reset_delim_output[0]).to eq('Sig, Andrea Giacomo Baldan suo- Zio è alto.')
+      expect(reset_delim_output[1]).to eq('Mio.')
+    end
+  end
 end

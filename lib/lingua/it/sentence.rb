@@ -8,6 +8,8 @@ module Lingua
       class << self
         attr_reader :abbreviations
         attr_reader :abbr_regex
+        attr_reader :delimiters
+        attr_reader :delim_regex
       end
 
       # Common abbreviations
@@ -16,22 +18,18 @@ module Lingua
       MONTHS = %w(gen feb mar apr mag giu lug ago set sett ott nov dic) unless defined?(MONTHS)
       DAYS   = %w(lun mar mer gio ven sab dom) unless defined?(DAYS)
 
-      # Text types
-      TYPES = {
-        'standard'   => /["']?[A-Z][^.?!]+((?![.?!]['"]?\s["']?[A-Z][^.?!]).)+[.?!'"]+/,
-        'scientific' => /["']?[A-Z][^.;:?!]+((?![.;:?!]['"]?\s["']?[A-Z][^.;:?!]).)+[.;:?!'"]+/
-      }
-      TYPES.default_proc = proc { |hash, key| hash[key] = /["']?[A-Z][^.?!]+((?![.?!]['"]?\s["']?[A-Z][^.?!]).)+[.?!'"]+/ }
+      # Standard delimiters
+      STD = %w(. ? !)
 
       # Split up in sentences, use 0002 as a temporary end mark for
       # the abbreviations found, even if the regex should be enough
       # to recognize real stop point from abbreviations ones.
       # A sentences should definetly end marked only by a . or a ?
       # or a !
-      def self.sentences(text, type = 'standard')
+      def self.sentences(text)
         txt = text.dup
         txt.gsub!(/\b(#{@abbr_regex})(\.)\B/i, '\10002')
-        txt.gsub!(/#{TYPES[type]}/, '\2\001')
+        txt.gsub!(/["']?[A-Z][^#{@delim_regex}]+((?![#{@delim_regex}]['"]?\s["']?[A-Z][^#{@delim_regex}]).)+[#{@delim_regex}'"]+/, '\2\001')
         txt.gsub!(/\b(#{@abbr_regex})(0002)/i, '\1.')
         txt.split(/01/).map { |sentence| sentence.strip }
       end
@@ -42,6 +40,20 @@ module Lingua
         @abbreviations.uniq!
         set_abbr_regex!
         @abbreviations
+      end
+
+      # Add symbols to sentence delimters
+      def self.delimiter(*delimiters)
+        @delimiters += delimiters
+        @delimiters.uniq!
+        set_delim_regex!
+        @delimiters
+      end
+
+      def self.reset_delimiter
+        @delimiters = STD
+        set_delim_regex!
+        @delimiters
       end
 
       private
@@ -57,8 +69,20 @@ module Lingua
         @abbr_regex = "#{@abbreviations.join('|')}"
       end
 
-      initialize_abbreviations!
+      # Utility method, chain up all delimiters constants arrays
+      def self.initialize_delimiters!
+        @delimiters = STD
+        set_delim_regex!
+      end
 
+      # Utility method, join all elements of the delimiters arrays
+      # without a separator, making suitable for a regex.
+      def self.set_delim_regex!
+        @delim_regex = "#{@delimiters.join('\\')}"
+      end
+
+      initialize_abbreviations!
+      initialize_delimiters!
     end
   end
 end

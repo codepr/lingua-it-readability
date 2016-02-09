@@ -10,24 +10,35 @@ module Lingua
   module IT
     class Readability
       attr_reader :text
-      attr_reader :text
-      attr_reader :type
+      attr_reader :sent
       attr_reader :paragraphs
       attr_reader :sentences
       attr_reader :words
       attr_reader :frequencies
 
       # Initialize the sample with +text+
-      def initialize(text = '', type = 'standard')
+      def initialize(text = '', *delimiters)
+
+        @sent = Lingua::IT::Sentence
+        if(!delimiters.empty?)
+          @sent.delimiter(delimiters)
+        else
+          @sent.reset_delimiter
+        end
+
         @text                = text.dup
-        @type                = type
         @paragraphs          = Lingua::IT::Paragraph.paragraphs(self.text)
-        @sentences           = Lingua::IT::Sentence.sentences(self.text, self.type)
+        @sentences           = @sent.sentences(self.text)
         @words               = []
         @frequencies         = {}
         @frequencies.default = 0
         @syllables           = Lingua::IT::Syllable.syllables(self.text)
         count_words
+      end
+
+      # Reset Lingua::IT::Sentence symbols delimiter cache
+      def reset_delimiter
+        @sent.reset_delimiter
       end
 
       # The number of paragraphs in the sample. A paragraph is defined as a

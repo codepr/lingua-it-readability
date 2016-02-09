@@ -23,7 +23,10 @@ describe Lingua::IT::Sentence do
     ha deciso di non seguirlo al torneo di Augusta. I fan, invece, non l’hanno
     dimenticato: \"La loro accoglienza mi ha travolto\"" }
 
-    let(:output) { subject.sentences(input) }
+    let(:output) {
+      subject.reset_delimiter
+      subject.sentences(input)
+    }
 
     it "should get the correct number of sentences" do
       expect(output.length).to eq(11)
@@ -58,7 +61,10 @@ describe Lingua::IT::Sentence do
     end
 
     let(:sci_input) {"Abbreviazioni:\n- Gen;\n- Feb;\n- Mar;"}
-    let(:sci_output) { subject.sentences(sci_input, 'scientific') }
+    let(:sci_output) {
+      subject.delimiter(':',';')
+      subject.sentences(sci_input)
+    }
 
     it "should get the correct number of sentences in a scientific list" do
       expect(sci_output.length).to eq(4)
@@ -87,5 +93,16 @@ describe Lingua::IT::Sentence do
       expect(new_abbr_output[0]).to eq('Sig. Andrea Giacomo Baldan suo. Zio è alto.')
       expect(new_abbr_output[1]).to eq('Mio.')
     end
+  end
+
+  describe "#delimiter" do
+    subject { Lingua::IT::Sentence }
+    let(:add_delim_output) { subject.delimiter(',', '-') }
+
+    it "should add the delimiters to the list" do
+      expect(add_delim_output).to include(',')
+      expect(add_delim_output).to include('-')
+    end
+
   end
 end
