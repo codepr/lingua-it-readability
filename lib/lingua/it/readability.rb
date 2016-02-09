@@ -17,7 +17,20 @@ module Lingua
       attr_reader :frequencies
 
       # Initialize the sample with +text+
-      def initialize(text, type = 'standard')
+      def initialize(text = '', type = 'standard')
+        @text                = text.dup
+        @type                = type
+        @paragraphs          = Lingua::IT::Paragraph.paragraphs(self.text)
+        @sentences           = Lingua::IT::Sentence.sentences(self.text, self.type)
+        @words               = []
+        @frequencies         = {}
+        @frequencies.default = 0
+        @syllables           = Lingua::IT::Syllable.syllables(self.text)
+        count_words
+      end
+
+      # Analyze the sample with +text+
+      def analyze(text, type = 'standard')
         @text                = text.dup
         @type                = type
         @paragraphs          = Lingua::IT::Paragraph.paragraphs(self.text)

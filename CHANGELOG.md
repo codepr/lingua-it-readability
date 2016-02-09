@@ -1,3 +1,15 @@
+#### 1.0.2 - 2016-02-09
+###### Added
+- Readme usage section
+###### Fixed
+- Minor bugs.
+
+#### 1.0.1 - 2016-02-09
+###### Added
+- Some more tests.
+###### Fixed
+- Improvements on syllables regex
+
 #### 1.0.0 - 2016-02-09
 ###### Added
 - Some more tests.
