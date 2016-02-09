@@ -49,6 +49,13 @@ describe Lingua::IT::Readability do
     end
   end
 
+  describe "#num_syllables" do
+    let(:output) { subject.num_syllables }
+    it "should calculate the correct number of syllables " do
+      expect(output).to eq(401)
+    end
+  end
+
   describe "#occurrences" do
     let(:output) { subject.occurrences('attività') }
     it "should calculate the correct number of occurences of the word 'attività'" do
@@ -66,7 +73,7 @@ describe Lingua::IT::Readability do
   describe "#syllables_per_word" do
     let(:output) { subject.syllables_per_word }
     it "should calculate the average number of syllables per word" do
-      expect(output).to eq(2.08)
+      expect(output).to eq(2.1)
     end
   end
 
@@ -80,7 +87,7 @@ describe Lingua::IT::Readability do
   describe "#flesch" do
     let(:output) { subject.flesch }
     it "should calculate the correct flesch index" do
-      expect(output).to eq(53.19)
+      expect(output).to eq(52.17)
     end
   end
 
