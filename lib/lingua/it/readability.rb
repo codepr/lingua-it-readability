@@ -145,7 +145,8 @@ module Lingua
       # A nicely formatted report on the sample, showing most the useful
       # stats
       def report
-        sprintf "Number of paragraphs           %d \n" <<
+        sprintf "Sentence delimiters            %s \n" <<
+                "Number of paragraphs           %d \n" <<
                 "Number of sentences            %d \n" <<
                 "Number of words                %d \n" <<
                 "Number of characters           %d \n\n" <<
@@ -153,9 +154,9 @@ module Lingua
                 "Average syllables per word     %.2f \n\n" <<
                 "Gulpease score                 %2.2f \n" <<
                 "Flesch score                   %2.2f \n",
-                num_paragraphs, num_sentences, num_words, num_characters,
-                words_per_sentence, syllables_per_word, gulpease,
-                flesch
+                sentence.delim_regex.gsub(/\\/,''), num_paragraphs, num_sentences,
+                num_words, num_characters, words_per_sentence,
+                syllables_per_word, gulpease, flesch
       end
 
       private

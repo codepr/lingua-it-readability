@@ -1,3 +1,8 @@
+#### 1.1.6 - 2016-02-10
+###### Added
+- Refactoring
+- Additional test for report method
+
 #### 1.1.5 - 2016-02-10
 ###### Added
 - Method analyze, accept text and optional delimiters

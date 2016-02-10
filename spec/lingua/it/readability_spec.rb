@@ -91,68 +91,84 @@ describe Lingua::IT::Readability do
     end
   end
 
+  describe "#report" do
+    let(:output) { subject.report }
+    it "should report stats well formatted" do
+      exp = sprintf "Sentence delimiters            .?! \n" <<
+                    "Number of paragraphs           16 \n" <<
+                    "Number of sentences            11 \n" <<
+                    "Number of words                191 \n" <<
+                    "Number of characters           914 \n\n" <<
+                    "Average words per sentence     17.36 \n" <<
+                    "Average syllables per word     2.12 \n\n" <<
+                    "Gulpease score                 58.00 \n" <<
+                    "Flesch score                   50.81 \n"
+      expect(output).to eq(exp)
+    end
+  end
+
   describe "#delimiters" do
-    subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.", ',', '-') }
-    let(:new_delim_output) { subject.sentences }
+      subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.", ',', '-') }
+      let(:new_delim_output) { subject.sentences }
 
-    it "should recognize the correct number of sentences with new delimiter added" do
-      expect(new_delim_output.length).to eq(4)
-      expect(new_delim_output[0]).to eq('Sig,')
-      expect(new_delim_output[1]).to eq('Andrea Giacomo Baldan suo-')
-      expect(new_delim_output[2]).to eq('Zio è alto.')
-      expect(new_delim_output[3]).to eq('Mio.')
+      it "should recognize the correct number of sentences with new delimiter added" do
+        expect(new_delim_output.length).to eq(4)
+        expect(new_delim_output[0]).to eq('Sig,')
+        expect(new_delim_output[1]).to eq('Andrea Giacomo Baldan suo-')
+        expect(new_delim_output[2]).to eq('Zio è alto.')
+        expect(new_delim_output[3]).to eq('Mio.')
+      end
+    end
+
+    describe "#reset_delimiter!" do
+      subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.") }
+      let(:reset_delim_output) {
+        subject.reset_delimiter!
+        subject.sentences
+      }
+
+      it "should recognize the correct number of sentences with new delimiter added" do
+        expect(reset_delim_output.length).to eq(2)
+        expect(reset_delim_output[0]).to eq('Sig, Andrea Giacomo Baldan suo- Zio è alto.')
+        expect(reset_delim_output[1]).to eq('Mio.')
+      end
+    end
+
+    describe "#analyze" do
+      subject { Lingua::IT::Readability.new }
+      let(:analyze_output) {
+        subject.analyze("Sig. Andrea Giacomo Baldan suo zio è alto. Mio.")
+        subject.sentences
+      }
+
+      it "should recognize the correct number of sentences after analysis" do
+        expect(analyze_output.length).to eq(2)
+        expect(analyze_output[0]).to eq('Sig. Andrea Giacomo Baldan suo zio è alto.')
+        expect(analyze_output[1]).to eq('Mio.')
+      end
+
+      let(:analyze_delim_output) {
+        subject.analyze("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.", ',', '-')
+        subject.sentences
+      }
+
+      it "should recognize the correct number of sentences after analysis with additional delimiters" do
+        expect(analyze_delim_output.length).to eq(4)
+        expect(analyze_delim_output[0]).to eq('Sig,')
+        expect(analyze_delim_output[1]).to eq('Andrea Giacomo Baldan suo-')
+        expect(analyze_delim_output[2]).to eq('Zio è alto.')
+        expect(analyze_delim_output[3]).to eq('Mio.')
+      end
+
+      let(:analyze_reset_output) {
+        subject.analyze("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.")
+        subject.sentences
+      }
+
+      it "should automatically reset delimiters and recognize the correct number of sentences after analysis" do
+        expect(analyze_reset_output.length).to eq(2)
+        expect(analyze_reset_output[0]).to eq('Sig, Andrea Giacomo Baldan suo- Zio è alto.')
+        expect(analyze_reset_output[1]).to eq('Mio.')
+      end
     end
   end
-
-  describe "#reset_delimiter!" do
-    subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.") }
-    let(:reset_delim_output) {
-      subject.reset_delimiter!
-      subject.sentences
-    }
-
-    it "should recognize the correct number of sentences with new delimiter added" do
-      expect(reset_delim_output.length).to eq(2)
-      expect(reset_delim_output[0]).to eq('Sig, Andrea Giacomo Baldan suo- Zio è alto.')
-      expect(reset_delim_output[1]).to eq('Mio.')
-    end
-  end
-
-  describe "#analyze" do
-    subject { Lingua::IT::Readability.new }
-    let(:analyze_output) {
-      subject.analyze("Sig. Andrea Giacomo Baldan suo zio è alto. Mio.")
-      subject.sentences
-    }
-
-    it "should recognize the correct number of sentences after analysis" do
-      expect(analyze_output.length).to eq(2)
-      expect(analyze_output[0]).to eq('Sig. Andrea Giacomo Baldan suo zio è alto.')
-      expect(analyze_output[1]).to eq('Mio.')
-    end
-
-    let(:analyze_delim_output) {
-      subject.analyze("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.", ',', '-')
-      subject.sentences
-    }
-
-    it "should recognize the correct number of sentences after analysis with additional delimiters" do
-      expect(analyze_delim_output.length).to eq(4)
-      expect(analyze_delim_output[0]).to eq('Sig,')
-      expect(analyze_delim_output[1]).to eq('Andrea Giacomo Baldan suo-')
-      expect(analyze_delim_output[2]).to eq('Zio è alto.')
-      expect(analyze_delim_output[3]).to eq('Mio.')
-    end
-
-    let(:analyze_reset_output) {
-      subject.analyze("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.")
-      subject.sentences
-    }
-
-    it "should automatically reset delimiters and recognize the correct number of sentences after analysis" do
-      expect(analyze_reset_output.length).to eq(2)
-      expect(analyze_reset_output[0]).to eq('Sig, Andrea Giacomo Baldan suo- Zio è alto.')
-      expect(analyze_reset_output[1]).to eq('Mio.')
-    end
-  end
-end
