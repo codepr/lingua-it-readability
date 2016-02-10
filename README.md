@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/codepr/lingua-it-readability.svg?branch=master)](https://travis-ci.org/codepr/lingua-it-readability)
+[![Gem Version](https://badge.fury.io/rb/lingua-it-readability.svg)](https://badge.fury.io/rb/lingua-it-readability)
 
 # Lingua::It::Readability
 
