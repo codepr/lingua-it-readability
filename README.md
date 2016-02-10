@@ -3,7 +3,7 @@
 
 # Lingua::It::Readability
 
-Inpired by Lingua::EN::Readability and his perl original version Lingua::EN::Fathom, a gem focused on readability of Italian language texts.
+Inspired by _Lingua::EN::Readability_ and his perl original version _Lingua::EN::Fathom_, a gem focused on readability of Italian language texts.
 
 ## Installation
 
