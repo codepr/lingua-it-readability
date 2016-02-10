@@ -8,12 +8,14 @@
 - Optimized regex, greatly improved overall performance
 - Possibility to add custom symbols as end delimiter for sentences
 - Readme usage section
+
 ###### Fixed
 - Minor bugs
 
 #### 1.0.4 - 2016-02-09
 ###### Added
 - Readme usage section
+
 ###### Fixed
 - Minor bugs
 
@@ -24,12 +26,14 @@
 #### 1.0.2 - 2016-02-09
 ###### Added
 - Readme usage section
+
 ###### Fixed
 - Minor bugs
 
 #### 1.0.1 - 2016-02-09
 ###### Added
 - Some more tests
+
 ###### Fixed
 - Improvements on syllables regex
 
