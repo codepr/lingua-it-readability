@@ -39,6 +39,16 @@ report.num_sentences # 3
 report.num_words     # 3
 report.num_syllables # 8
 report.report        # a formatted summary of statistics and measures
+
+# It's also possible to not directly initialize the object..
+text = "Lista:\n- Gennaio;\n- Febbraio;"
+report = Lingua::IT::Readability.new
+# ..using method analyze with optional delimiters
+report.analyze(text, ':', ';')
+report.num_sentences # 3
+report.num_words     # 3
+report.num_syllables # 8
+report.report        # a formatted summary of statistics and measures
 ```
 
 ## Development

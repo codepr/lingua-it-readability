@@ -1,3 +1,8 @@
+#### 1.1.5 - 2016-02-10
+###### Added
+- Method analyze, accept text and optional delimiters
+- Updated usage section
+
 #### 1.1.0 - 2016-02-09
 ###### Added
 - Optimized regex, greatly improved overall performance

@@ -9,36 +9,59 @@ end
 module Lingua
   module IT
     class Readability
-      attr_reader :text
-      attr_reader :sent
-      attr_reader :paragraphs
-      attr_reader :sentences
-      attr_reader :words
-      attr_reader :frequencies
+      attr_accessor :text
+      attr_accessor :paragraphs
+      attr_accessor :sentences
+      attr_accessor :words
+      attr_accessor :frequencies
+      attr_reader :sentence
+      attr_reader :paragraph
+      attr_reader :syllable
 
       # Initialize the sample with +text+
       def initialize(text = '', *delimiters)
 
-        @sent = Lingua::IT::Sentence
+        @paragraph = Lingua::IT::Paragraph
+        @sentence  = Lingua::IT::Sentence
+        @syllable  = Lingua::IT::Syllable
+
         if(!delimiters.empty?)
-          @sent.delimiter(delimiters)
+          @sentence.delimiter(delimiters)
         else
-          @sent.reset_delimiter
+          @sentence.reset_delimiter
         end
 
         @text                = text.dup
-        @paragraphs          = Lingua::IT::Paragraph.paragraphs(self.text)
-        @sentences           = @sent.sentences(self.text)
+        @paragraphs          = @paragraph.paragraphs(self.text)
+        @sentences           = @sentence.sentences(self.text)
         @words               = []
         @frequencies         = {}
         @frequencies.default = 0
-        @syllables           = Lingua::IT::Syllable.syllables(self.text)
+        @syllables           = @syllable.syllables(self.text)
+        count_words
+      end
+
+      # Analyze a text sample with optional delimiters
+      def analyze(text = '', *delimiters)
+        if(!delimiters.empty?)
+          @sentence.delimiter(delimiters)
+        else
+          @sentence.reset_delimiter
+        end
+
+        @text                = text.dup
+        @paragraphs          = @paragraph.paragraphs(self.text)
+        @sentences           = @sentence.sentences(self.text)
+        @words               = []
+        @frequencies         = {}
+        @frequencies.default = 0
+        @syllables           = @syllable.syllables(self.text)
         count_words
       end
 
       # Reset Lingua::IT::Sentence symbols delimiter cache
       def reset_delimiter
-        @sent.reset_delimiter
+        @sentence.reset_delimiter
       end
 
       # The number of paragraphs in the sample. A paragraph is defined as a
