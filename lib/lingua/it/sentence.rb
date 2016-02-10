@@ -50,7 +50,7 @@ module Lingua
         @delimiters
       end
 
-      def self.reset_delimiter
+      def self.reset_delimiter!
         @delimiters = STD
         set_delim_regex!
         @delimiters
@@ -69,12 +69,6 @@ module Lingua
         @abbr_regex = "#{@abbreviations.join('|')}"
       end
 
-      # Utility method, chain up all delimiters constants arrays
-      def self.initialize_delimiters!
-        @delimiters = STD
-        set_delim_regex!
-      end
-
       # Utility method, join all elements of the delimiters arrays
       # without a separator, making suitable for a regex.
       def self.set_delim_regex!
@@ -82,7 +76,7 @@ module Lingua
       end
 
       initialize_abbreviations!
-      initialize_delimiters!
+      reset_delimiter!
     end
   end
 end

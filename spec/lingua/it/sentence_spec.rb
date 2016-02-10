@@ -24,7 +24,7 @@ describe Lingua::IT::Sentence do
     dimenticato: \"La loro accoglienza mi ha travolto\"" }
 
     let(:output) {
-      subject.reset_delimiter
+      subject.reset_delimiter!
       subject.sentences(input)
     }
 

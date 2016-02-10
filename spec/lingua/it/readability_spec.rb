@@ -104,10 +104,10 @@ describe Lingua::IT::Readability do
     end
   end
 
-  describe "#reset_delimiter" do
+  describe "#reset_delimiter!" do
     subject { Lingua::IT::Readability.new("Sig, Andrea Giacomo Baldan suo- Zio è alto. Mio.") }
     let(:reset_delim_output) {
-      subject.reset_delimiter
+      subject.reset_delimiter!
       subject.sentences
     }
 

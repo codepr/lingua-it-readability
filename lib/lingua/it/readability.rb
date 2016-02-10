@@ -28,7 +28,7 @@ module Lingua
         if(!delimiters.empty?)
           @sentence.delimiter(delimiters)
         else
-          @sentence.reset_delimiter
+          @sentence.reset_delimiter!
         end
 
         @text                = text.dup
@@ -42,11 +42,11 @@ module Lingua
       end
 
       # Analyze a text sample with optional delimiters
-      def analyze(text = '', *delimiters)
+      def analyze(text, *delimiters)
         if(!delimiters.empty?)
           @sentence.delimiter(delimiters)
         else
-          @sentence.reset_delimiter
+          @sentence.reset_delimiter!
         end
 
         @text                = text.dup
@@ -60,14 +60,14 @@ module Lingua
       end
 
       # Reset Lingua::IT::Sentence symbols delimiter cache
-      def reset_delimiter
-        @sentence.reset_delimiter
+      def reset_delimiter!
+        @sentence.reset_delimiter!
       end
 
       # The number of paragraphs in the sample. A paragraph is defined as a
       # newline followed by one or more empty or whitespace-only lines.
       def num_paragraphs
-        paragraphs.length
+        @paragraphs.length
       end
 
       # The number of sentences in the sample. The meaning of a "sentence" is
@@ -87,7 +87,7 @@ module Lingua
       # characters, not taking account of punctuation and spaces, see private
       # method +count_words+ for additional info about a word definition
       def num_words
-        words.length
+        @words.length
       end
 
       # The total number of syllables in the text sample. Syllables are defined
