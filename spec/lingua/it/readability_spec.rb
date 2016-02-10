@@ -101,7 +101,7 @@ describe Lingua::IT::Readability do
                     "Number of characters           914 \n\n" <<
                     "Average words per sentence     17.36 \n" <<
                     "Average syllables per word     2.12 \n\n" <<
-                    "Gulpease score                 58.00 \n" <<
+                    "Gulpease score                 58 \n" <<
                     "Flesch score                   50.81 \n"
       expect(output).to eq(exp)
     end

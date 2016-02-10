@@ -24,11 +24,16 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
+require 'lingua/it/readability'
+
 text   = 'Testo campione da analizzare con Gulpease e Flesch tarati su lingua Italiana.'
 report = Lingua::IT::Readability.new(text)
 report.num_sentences # 1
 report.num_words     # 12
 report.num_syllables # 29
+report.syllables     # array containing all 29 syllables => ['Te', 'sto', 'cam', 'pio', 'ne', ... ,]
+report.sentences     # array containing all sentences => [...]
+report.words         # array containing all words => ['Testo', 'campione', 'da', 'analizzare', ... ,]
 report.gulpease      # 59
 report.flesch        # 36.92
 report.report        # a formatted summary of statistics and measures

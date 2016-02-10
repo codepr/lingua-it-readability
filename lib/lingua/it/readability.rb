@@ -152,7 +152,7 @@ module Lingua
                 "Number of characters           %d \n\n" <<
                 "Average words per sentence     %.2f \n" <<
                 "Average syllables per word     %.2f \n\n" <<
-                "Gulpease score                 %2.2f \n" <<
+                "Gulpease score                 %d \n" <<
                 "Flesch score                   %2.2f \n",
                 sentence.delim_regex.gsub(/\\/,''), num_paragraphs, num_sentences,
                 num_words, num_characters, words_per_sentence,
