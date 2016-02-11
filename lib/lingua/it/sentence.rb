@@ -29,7 +29,7 @@ module Lingua
       def self.sentences(text)
         txt = text.dup
         txt.gsub!(/\b(#{@abbr_regex})(\.)\B/i, '\10002')
-        txt.gsub!(/["']?[A-Z][^#{@delim_regex}]+((?![#{@delim_regex}]['"]?\s["']?[A-Z][^#{@delim_regex}]).)+[#{@delim_regex}'"]+/, '\2\001')
+        txt.gsub!(/["']?[A-Z][^\Q#{@delim_regex}\E]+((?![\Q#{@delim_regex}\E]['"]?\s["']?[A-Z][^\Q#{@delim_regex}\E]).)+[\Q#{@delim_regex}\E'"]+/, '\2\001')
         txt.gsub!(/\b(#{@abbr_regex})(0002)/i, '\1.')
         txt.split(/01/).map { |sentence| sentence.strip }
       end
@@ -72,7 +72,7 @@ module Lingua
       # Utility method, join all elements of the delimiters arrays
       # without a separator, making suitable for a regex.
       def self.set_delim_regex!
-        @delim_regex = "#{@delimiters.join('\\')}"
+        @delim_regex = "#{@delimiters.join('')}"
       end
 
       initialize_abbreviations!

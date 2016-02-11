@@ -1,3 +1,11 @@
+#### 1.2.0 - 2016-02-11
+###### Added
+- Analyze_file method
+- More accurate report
+
+###### Fixed
+- Escaped delimiters in sentence regex
+
 #### 1.1.7 - 2016-02-11
 ###### Fixed
 - Minor bugs

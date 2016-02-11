@@ -97,6 +97,7 @@ describe Lingua::IT::Readability do
       exp = sprintf "Sentence delimiters            .?! \n" <<
                     "Number of paragraphs           16 \n" <<
                     "Number of sentences            11 \n" <<
+                    "Number of syllables            405 \n" <<
                     "Number of words                191 \n" <<
                     "Number of characters           914 \n\n" <<
                     "Average words per sentence     17.36 \n" <<
@@ -169,6 +170,20 @@ describe Lingua::IT::Readability do
         expect(analyze_reset_output.length).to eq(2)
         expect(analyze_reset_output[0]).to eq('Sig, Andrea Giacomo Baldan suo- Zio è alto.')
         expect(analyze_reset_output[1]).to eq('Mio.')
+      end
+    end
+
+    describe "#analyze_file" do
+      subject { Lingua::IT::Readability.new }
+      let(:a_f_output) {
+        subject.analyze_file('spec/lingua/it/test.txt')
+        subject.sentences
+      }
+
+      it "should recognize the correct number of sentences from the file" do
+        expect(a_f_output.length).to eq(2)
+        expect(a_f_output[0]).to eq('Testo di prova.')
+        expect(a_f_output[1]).to eq('Ciao.')
       end
     end
   end

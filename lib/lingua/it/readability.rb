@@ -60,6 +60,18 @@ module Lingua
         count_words
       end
 
+      # Analyze file content with optional delimiters
+      def analyze_file(file_name, *delimiters)
+        # check that file exists
+        if !File.exists?(file_name)
+          raise "An error has occured"
+          return
+        end
+        # slurp file into string and pass it to analyze method
+        text = File.open(file_name) { |f| f.read }.strip
+        analyze(text, delimiters)
+      end
+
       # Reset Lingua::IT::Sentence symbols delimiter cache
       def reset_delimiter!
         @sentence.reset_delimiter!
@@ -149,6 +161,7 @@ module Lingua
         sprintf "Sentence delimiters            %s \n" <<
                 "Number of paragraphs           %d \n" <<
                 "Number of sentences            %d \n" <<
+                "Number of syllables            %d \n" <<
                 "Number of words                %d \n" <<
                 "Number of characters           %d \n\n" <<
                 "Average words per sentence     %.2f \n" <<
@@ -156,7 +169,7 @@ module Lingua
                 "Gulpease score                 %d \n" <<
                 "Flesch score                   %2.2f \n",
                 sentence.delim_regex.gsub(/\\/,''), num_paragraphs, num_sentences,
-                num_words, num_characters, words_per_sentence,
+                num_syllables, num_words, num_characters, words_per_sentence,
                 syllables_per_word, gulpease, flesch
       end
 
