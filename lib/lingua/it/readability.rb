@@ -12,6 +12,7 @@ module Lingua
       attr_accessor :text
       attr_accessor :paragraphs
       attr_accessor :sentences
+      attr_accessor :syllables
       attr_accessor :words
       attr_accessor :frequencies
       attr_reader :sentence
