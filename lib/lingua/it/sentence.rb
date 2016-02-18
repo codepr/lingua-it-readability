@@ -31,7 +31,7 @@ module Lingua
         txt.gsub!(/\b(#{@abbr_regex})(\.)\B/i, '\10002')
         txt.gsub!(/["']?[A-Z][^\Q#{@delim_regex}\E]+((?![\Q#{@delim_regex}\E]['"]?\s["']?[A-Z][^\Q#{@delim_regex}\E]).)+[\Q#{@delim_regex}\E'"]+/, '\2\001')
         txt.gsub!(/\b(#{@abbr_regex})(0002)/i, '\1.')
-        txt.split(/01|\n\s*\n/).map { |sentence| sentence.strip }
+        txt.split(/01/).map { |sentence| sentence.strip }
       end
 
       # Add customized abbreviations to standard set
