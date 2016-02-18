@@ -13,10 +13,10 @@ module Lingua
       end
 
       # Common abbreviations
-      TITLES = %w(sig sigg dott preg prof mr jr amn avv co stim dr egr geom ing mons on rag rev soc spett card ill gent cav) unless defined?(TITLES)
-      MISC   = %w(p v femm dim ecc etc corr cc bcc all es fatt g gg id int lett ogg pag pagg cap pp tel ind v n num min sec ms abbr agg art aus) unless defined?(MISC)
-      MONTHS = %w(gen feb mar apr mag giu lug ago set sett ott nov dic) unless defined?(MONTHS)
-      DAYS   = %w(lun mar mer gio ven sab dom) unless defined?(DAYS)
+      TITLES = %w(Sig Sigg Dott Preg Prof Mr Jr Amn Avv Co Stim Dr Egr Geom Ing Mons On Rag Rev Soc Spett Card Ill Gent Cav) unless defined?(TITLES)
+      MISC   = %w(P V Femm Dim Ecc Etc Corr Cc Bcc All Es Fatt G Gg Id Int Lett Ogg Pag Pagg Cap Pp Tel Ind V N Num Min Sec Ms Abbr Agg Art Aus) unless defined?(MISC)
+      MONTHS = %w(Gen Feb Mar Apr Mag Giu Lug Ago Set Sett Ott Nov Dic) unless defined?(MONTHS)
+      DAYS   = %w(Lun Mar Mer Gio Ven Sab Dom) unless defined?(DAYS)
 
       # Standard delimiters
       STD = %w(. ? !)
@@ -31,7 +31,7 @@ module Lingua
         txt.gsub!(/\b(#{@abbr_regex})(\.)\B/i, '\10002')
         txt.gsub!(/["']?[A-Z][^\Q#{@delim_regex}\E]+((?![\Q#{@delim_regex}\E]['"]?\s["']?[A-Z][^\Q#{@delim_regex}\E]).)+[\Q#{@delim_regex}\E'"]+/, '\2\001')
         txt.gsub!(/\b(#{@abbr_regex})(0002)/i, '\1.')
-        txt.split(/01/).map { |sentence| sentence.strip }
+        txt.split(/01|\n\s*\n/).map { |sentence| sentence.strip }
       end
 
       # Add customized abbreviations to standard set
