@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["a.g.baldan@gmail.com"]
 
   spec.summary       = %q{Text readability indexes and stats calibrated on Italian language.}
-  spec.description   = %q{Text readability indexes and stats calibrated on Italian language. Inspired by Lingua::EN::Readability and the original perl module Lingua::EN::Fathom. Gulpease and Flesch for italian text is calculated.}
+  spec.description   = %q{Text readability indexes and stats calibrated on Italian language. Inspired by Lingua::EN::Readability and the original Perl module Lingua::EN::Fathom. It prints some usefull readability stats including sentences, words, syllables and average values for words and sentences. Gulpease and Flesch for italian text is calculated.}
   spec.homepage      = "https://github.com/codepr/lingua-it-readability"
   spec.license       = "MIT"
 
@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.required_ruby_version = '>= 1.9.3'
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
